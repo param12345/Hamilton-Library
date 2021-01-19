@@ -28,6 +28,9 @@ namespace Hamilton_Library
         }
         public string UserName;
         string Pass;
+        public string FullName;
+        string usertype;
+        
         SqlConnection SqlConn = new SqlConnection(@"Data Source=VETASTW-01\SQLEXPRESS;Initial Catalog=LibrarySystem;Integrated Security=True");
 
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
@@ -35,6 +38,7 @@ namespace Hamilton_Library
 
             UserName = username.Text;
             Pass = Password.Password;
+           
             LoginCheck();
 
         }
@@ -47,20 +51,52 @@ namespace Hamilton_Library
             try
             {
                 SqlStr.Connection = SqlConn;
-                SqlStmt = "Select * from Login where username = '" + UserName + "' and password = '" + Pass + "'";
-                SqlStr.CommandText = SqlStmt;
-                SqlConn.Open();
-                SqlReader = SqlStr.ExecuteReader();
+                SqlStmt = "Select FullName, usertype from Users u Inner Join Login l  on u.Username = l.username where u.Username = @UserName and password = @Password ";
+                using (SqlCommand cmd = new SqlCommand(SqlStmt, SqlConn))
+
+                {
+
+                    cmd.Parameters.AddWithValue("@UserName", UserName);
+
+                    cmd.Parameters.AddWithValue("@Password", Pass);
+
+                    SqlConn.Open();
+
+                    SqlReader = cmd.ExecuteReader();
+
+                }
 
                 if (SqlReader.HasRows)
                 {
                     MessageBox.Show("Login Successful");
+                    SqlReader.Read();
+                    FullName = SqlReader[0].ToString();
+                    usertype = SqlReader[1].ToString();
 
-                    Dashboard dash = new Dashboard(UserName);
-                    dash.userName = UserName;
-                    dash.Show();
+                    if (usertype == "Admin")
+
+                    {
+
+                        AdminPage admin = new AdminPage(FullName);
+
+                        admin.Show();
+
+                    }
+
+                    else
+
+                    {
+
+                        Dashboard dash = new Dashboard(UserName);
+                        dash.userName = UserName;
+                        dash.Show();
+                        
+                    }
+
                     SqlConn.Close();
                     Hide();
+
+
                 }
                 else
                 {

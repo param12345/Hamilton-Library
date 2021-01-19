@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace Hamilton_Library
 {
@@ -19,19 +22,16 @@ namespace Hamilton_Library
     /// </summary>
     public partial class Dashboard : Window
     {
-        
+       
         public string userName;
-
-        public Dashboard( string UserName)
+       
+        public Dashboard(string UserName)
         {
-                   
-        InitializeComponent();
+
+            InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             UserName = userName;
             lblName.Content = "Hi " + UserName;
         }
     }
-
-
 }
-
