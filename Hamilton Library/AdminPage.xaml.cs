@@ -32,6 +32,12 @@ namespace Hamilton_Library
              
         }
 
+        public AdminPage()
+        {
+            InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             dgv_Books.ItemsSource = objDB.ListBooks("%").DefaultView;
@@ -140,5 +146,23 @@ namespace Hamilton_Library
                 MessageBox.Show("Select book to edit");
             }
     }
+
+        private void Issuebookbtn_Click(object sender, RoutedEventArgs e)
+        {
+            IssueB issueBook = new IssueB();
+
+            Hide();
+
+            issueBook.Show();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            ReturnBook returnBook = new ReturnBook();
+
+            Hide();
+
+            returnBook.Show();
+        }
     }
 }

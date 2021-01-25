@@ -158,6 +158,156 @@ namespace Hamilton_Library
             }
             return bookEdited;
         }
+
+
+        public DataTable ListUsers(string userfullname)
+        {
+            DataTable dt = new DataTable();
+            SqlDataReader SqlReader;
+            try
+            {
+                SqlStr.Connection = SqlConn;
+                SqlStmt = "Select * from  Users where FullName like '%"  +@userfullname + "%'";
+
+                using (SqlStr = new SqlCommand(SqlStmt, SqlConn))
+                {
+                    SqlStr.Parameters.AddWithValue("@userfullname", userfullname);
+                    SqlConn.Open();
+                    SqlReader = SqlStr.ExecuteReader();
+                }
+                   
+
+                    if (SqlReader.HasRows)
+                    {
+
+                    dt.Load(SqlReader);
+                    }
+                    SqlConn.Close();
+                return dt;
+                }
+            
+
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Database Exception" + ex.Message);
+                SqlConn.Close();
+            }
+            return null;
+        }
+        public bool IssueBook(string bookname, string username)
+
+        {
+
+            bool bookIssued = false;
+
+            int affectedRecords;
+
+
+
+            try
+
+            {
+
+                SqlStr.Connection = SqlConn;
+
+                SqlStmt = "Update Books set Borrower= '" + @username + "', available ='No' where BookName= '" + @bookname + "'";
+
+                using (SqlCommand cmd = new SqlCommand(SqlStmt, SqlConn))
+
+                {
+
+                    cmd.Parameters.AddWithValue("@username", username);
+
+                    cmd.Parameters.AddWithValue("@bookname", bookname);
+
+                    SqlConn.Open();
+
+                    affectedRecords = cmd.ExecuteNonQuery();
+
+                }
+
+                if (affectedRecords > 0)
+
+                {
+
+                    bookIssued = true;
+
+                }
+                SqlConn.Close();
+                }
+
+            catch (Exception ex)
+
+            {
+
+             MessageBox.Show("Database Exception" + ex.Message);
+
+            SqlConn.Close();
+
+            }
+            return bookIssued;
+
+        }
+        public bool ReturnBook(int bookID)
+
+        {
+
+            bool bookReturned = false;
+
+            int affectedRecords;
+
+
+
+            try
+
+            {
+
+                SqlStr.Connection = SqlConn;
+
+                SqlStmt = "Update Books set Borrower= ' NULL', available ='Yes' where BookID= '" + @bookID + "'";
+
+                using (SqlCommand cmd = new SqlCommand(SqlStmt, SqlConn))
+
+                {
+
+                    cmd.Parameters.AddWithValue("@bookID", bookID);
+
+                    SqlConn.Open();
+
+                    affectedRecords = cmd.ExecuteNonQuery();
+
+                }
+
+
+
+                if (affectedRecords > 0)
+
+                {
+
+                    bookReturned = true;
+
+                }
+
+
+
+                SqlConn.Close();
+
+            }
+
+            catch (Exception ex)
+
+            {
+
+                MessageBox.Show("Database Exception" + ex.Message);
+
+                SqlConn.Close();
+
+            }
+
+            return bookReturned;
+
+        }
     }
 }
 

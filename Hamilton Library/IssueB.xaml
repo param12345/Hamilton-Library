@@ -1,0 +1,24 @@
+﻿<Window x:Class="Hamilton_Library.IssueB"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Hamilton_Library"
+        mc:Ignorable="d"
+        Title="IssueB" Height="550" Width="900">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="767*"/>
+            <ColumnDefinition Width="25*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="BookName" HorizontalAlignment="Left" Margin="23,10,0,0" VerticalAlignment="Top" Width="113"/>
+        <TextBox x:Name="TextBookName" HorizontalAlignment="Left" Height="23" Margin="164,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="537" TextChanged="TextBookName_TextChanged_1"/>
+        <DataGrid x:Name="Datagd" HorizontalAlignment="Left" Height="165" Margin="35,60,0,0" VerticalAlignment="Top" Width="769"/>
+        <Label Content="Fullname" HorizontalAlignment="Left" Margin="10,225,0,0" VerticalAlignment="Top" Width="126"/>
+        <TextBox x:Name="textfullname" HorizontalAlignment="Left" Height="23" Margin="96,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="605" TextChanged="textfullname_TextChanged"/>
+        <DataGrid x:Name="Datagd2" HorizontalAlignment="Left" Height="165" Margin="35,279,0,0" VerticalAlignment="Top" Width="799"/>
+        <Button x:Name="IssueBtn" Content="IssueBook" HorizontalAlignment="Left" Margin="75,462,0,0" VerticalAlignment="Top" Width="129" Click="IssueBtn_Click"/>
+        <Button x:Name="ReturnToMM" Content="Return to Main Menu" HorizontalAlignment="Left" Margin="273,467,0,0" VerticalAlignment="Top" Width="344" Click="ReturnToMM_Click"/>
+
+    </Grid>
+</Window>
